@@ -7,11 +7,33 @@ public class Fractional {
 	public static final String NegativeInfinity = "-Infinity";
 	
 	Fractional(long numerator, long denominator) {	
-		// student code
 	}
 	
 	Fractional simplify() {
-		// student code
+		long num = numerator;
+		long den = denominator;
+		long temp;
+		if(numerator < 0) {
+			num = -numerator;
+		}
+		if(num > den) {
+		    temp = num;
+		}
+		else {
+			temp = den;
+		}
+		int divisor = 0;
+		for(int i = (int) temp; i>=2; i--) {
+			if(numerator % i == 0 && denominator % i == 0) {
+				divisor = i;
+				break;
+			}
+		}
+		if (divisor != 0) {
+			numerator = numerator/divisor;
+			denominator = denominator / divisor; 
+		}
+		return (new Fractional(numerator, denominator));
 	}
 	
 	// Not a Number (NaN) 
@@ -20,7 +42,11 @@ public class Fractional {
 	}
 
 	boolean isInfinity() {
-		// student code
+		//returns true if denominator is zero, returns false otherwise.
+		if(this.denominator == 0)
+			return true;
+		else
+			return false;
 	}
 	
 	int sign(long numerator, long denominator) {
@@ -38,7 +64,12 @@ public class Fractional {
 	
 	@Override
 	public String toString() {
-		// student code
+		if(this.isNaN()) {
+			return Fractional.NotANumber;
+}
+		return this.numerator + ((this.denominator != 1) ? "/" + this.denominator : "");
+
+		
 	}
 
 }
